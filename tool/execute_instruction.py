@@ -121,17 +121,17 @@ def binary( o1, o2 , step, op='NONE'):
     elif op =='SGT' : z3 = If(z1 > z2, BitVecVal(1, 256), BitVecVal(0, 256))
     elif op =='LT'  : z3 = If(ULT(z1, z2), BitVecVal(1, 256), BitVecVal(0, 256))
     elif op =='SLT' : z3 = If(z1 < z2, BitVecVal(1, 256), BitVecVal(0, 256))
-    elif op =='EQ'  : 
+    elif op =='EQ'  :
         global last_eq_step, last_eq_func
 
         # May reveal function calls
         # last_eq_step and _func are used only in the debugging mode
         if is_bv_value(z1) and z1.as_long() < 2**32 and z1.as_long() > 2**28: 
-            MyGlobals.last_eq_step = step
-            MyGlobals.last_eq_func = z1.as_long()
+            MyGlobals.last_eq_step.append(step)
+            MyGlobals.last_eq_func.append(z1.as_long())
         if is_bv_value(z2) and z2.as_long() < 2**32 and z2.as_long() > 2**28: 
-            MyGlobals.last_eq_step = step
-            MyGlobals.last_eq_func = z2.as_long()
+            MyGlobals.last_eq_step.append(step)
+            MyGlobals.last_eq_func.append(z2.as_long())
         z3 = If(z1 == z2, BitVecVal(1, 256), BitVecVal(0, 256))
     else:
         print('did not process binary operation %s  ' % op)

@@ -128,8 +128,8 @@ class MyGlobals(object):
     stop_search = False
     visited_nodes = 0
 
-    last_eq_step = -1
-    last_eq_func = -1
+    last_eq_step = []
+    last_eq_func = []
 
     symbolic_vars = []
     no_function_calls = 0

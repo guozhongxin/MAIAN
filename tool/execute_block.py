@@ -213,8 +213,10 @@ def execute_one_block( ops , stack , pos , trace, storage, mmemory, data, config
                         if MyGlobals.s.check() == sat:
 
                             if debug:
-                                if ops[pos]['id'] -  MyGlobals.last_eq_step < 5:
-                                    print('\t'*8+'-'*18+'\033[96m %2d Executing function %x \033[0m' % (calldepth, MyGlobals.last_eq_func) )
+                                if len(MyGlobals.last_eq_step)>0 and ops[pos]['id'] -  MyGlobals.last_eq_step[-1] < 5:
+                                    print('\t'*8+'-'*18+'\033[96m %2d Executing function %x \033[0m' % (calldepth, MyGlobals.last_eq_func[-1]) )
+                                    MyGlobals.last_eq_step.pop()
+                                    MyGlobals.last_eq_func.pop()
 
 
                             storage2 = copy.deepcopy(storage)
